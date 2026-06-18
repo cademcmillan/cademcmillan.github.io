@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Games</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f0f13;
+      color: #e8e8f0;
+      min-height: 100vh;
+      padding: 0 16px 60px;
+    }
+
+    header {
+      text-align: center;
+      padding: 52px 0 36px;
+    }
+
+    header h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+    }
+
+    header h1 span {
+      color: #7c6af7;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 15px;
+      color: #8888a0;
+    }
+
+    .date-pill {
+      display: inline-block;
+      margin-top: 16px;
+      background: #1e1e2e;
+      border: 1px solid #2e2e44;
+      border-radius: 999px;
+      padding: 5px 16px;
+      font-size: 13px;
+      color: #7c6af7;
+      letter-spacing: 0.04em;
+    }
+
+    .section {
+      max-width: 860px;
+      margin: 0 auto 40px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #55556a;
+      margin-bottom: 14px;
+      padding-left: 2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: #16161f;
+      border: 1px solid #22222e;
+      border-radius: 16px;
+      padding: 20px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      background: #1c1c28;
+      border-color: #3a3a55;
+      transform: translateY(-2px);
+    }
+
+    .card:active {
+      transform: translateY(0);
+    }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e0e0f0;
+      text-align: center;
+    }
+
+    .card-type {
+      font-size: 11px;
+      color: #66667a;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    footer {
+      text-align: center;
+      padding-top: 20px;
+      font-size: 12px;
+      color: #44445a;
+    }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Daily <span>Games</span></h1>
+  <p>Your daily lineup — one click to play</p>
+  <div class="date-pill" id="today-date"></div>
+</header>
+
+<div class="section">
+  <p class="section-label">Word Games</p>
+  <div class="grid" id="word-games"></div>
+</div>
+
+<div class="section">
+  <p class="section-label">Geography Games</p>
+  <div class="grid" id="geo-games"></div>
+</div>
+
+<div class="section">
+  <p class="section-label">Sports Games</p>
+  <div class="grid" id="sports-games"></div>
+</div>
+
+<div class="section">
+  <p class="section-label">Trivia &amp; Logic</p>
+  <div class="grid" id="trivia-games"></div>
+</div>
+
+<footer>Updated daily &mdash; click any game to play</footer>
+
+<script>
+  const wordGames = [
+    { name: "Wordle", type: "Guess the 5-letter word", url: "https://www.nytimes.com/games/wordle/index.html", bg: "#1a3a1a", color: "#6aaa64", letter: "W" },
+    { name: "Quordle", type: "4 Wordles at once", url: "https://www.merriam-webster.com/games/quordle/", bg: "#3a2a0a", color: "#f6aa1c", letter: "Q" },
+    { name: "Spelling Bee", type: "Make words from 7 letters", url: "https://www.nytimes.com/puzzles/spelling-bee", bg: "#3a2e00", color: "#f7c60a", letter: "B" },
+    { name: "Connections", type: "Group 16 words", url: "https://www.nytimes.com/games/connections", bg: "#2a1a3a", color: "#b59df8", letter: "C" },
+    { name: "Crosswordle", type: "Reverse Wordle crossword", url: "https://crosswordle.vercel.app/", bg: "#1a2a3a", color: "#60a5fa", letter: "X" },
+    { name: "Heardle", type: "Guess the song", url: "https://spotify.com/heardle", bg: "#0a2a1a", color: "#1db954", letter: "H" },
+  ];
+
+  const geoGames = [
+    { name: "Worldle", type: "Guess the country shape", url: "https://worldle.teuteuf.fr/", bg: "#0a2a1a", color: "#4caf8a", letter: "W" },
+    { name: "Globle", type: "Hot/cold country guessing", url: "https://globle-game.com/", bg: "#0a1a3a", color: "#3a86ff", letter: "G" },
+    { name: "Flagle", type: "Guess the flag", url: "https://www.flagle.io/", bg: "#3a0a0a", color: "#e63946", letter: "F" },
+    { name: "Travle", type: "Connect countries by path", url: "https://travle.earth/", bg: "#0a2a10", color: "#2d9e4f", letter: "T" },
+    { name: "Statele", type: "Guess the US state", url: "https://statele.teuteuf.fr/", bg: "#0a1a2a", color: "#457b9d", letter: "S" },
+    { name: "Citydle", type: "Guess the city", url: "https://citydle.com/", bg: "#2a1a0a", color: "#d4845a", letter: "C" },
+  ];
+
+  const sportsGames = [
+    { name: "Poeltl", type: "Guess the NBA player", url: "https://poeltl.dunk.town/", bg: "#2a0a0a", color: "#c9463d", letter: "P" },
+    { name: "Weddle", type: "Guess the NFL player", url: "https://www.weddlegame.com/", bg: "#0a1a0a", color: "#3a7d3a", letter: "W" },
+    { name: "Puckdoku", type: "NHL sudoku grid", url: "https://puckdoku.com/", bg: "#0a0a2a", color: "#4a6fd8", letter: "P" },
+    { name: "Immaculate Grid", type: "Baseball 3x3 trivia", url: "https://www.immaculategrid.com/", bg: "#2a0a0a", color: "#cc3433", letter: "I" },
+    { name: "Footdle", type: "Guess the soccer player", url: "https://www.footdle.app/", bg: "#0a2a0a", color: "#4caf50", letter: "F" },
+    { name: "Golf Wordle", type: "Guess the golfer", url: "https://golfdle.com/", bg: "#1a2a0a", color: "#8ab84a", letter: "G" },
+  ];
+
+  const triviaGames = [
+    { name: "NYT Mini", type: "Quick crossword", url: "https://www.nytimes.com/crosswords/game/mini", bg: "#1a1a2a", color: "#9999ff", letter: "M" },
+    { name: "Framed", type: "Guess the movie", url: "https://framed.wtf/", bg: "#2a1a0a", color: "#f0883e", letter: "F" },
+    { name: "Nerdle", type: "Guess the equation", url: "https://nerdlegame.com/", bg: "#0a2a2a", color: "#00c8aa", letter: "N" },
+    { name: "Contexto", type: "Find the secret word", url: "https://contexto.me/", bg: "#2a2a0a", color: "#d4c040", letter: "C" },
+  ];
+
+  function renderGames(games, containerId) {
+    const container = document.getElementById(containerId);
+    games.forEach(g => {
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.href = g.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.innerHTML = `
+        <div class="icon" style="background:${g.bg}; color:${g.color}; border: 1px solid ${g.color}33;">${g.letter}</div>
+        <p class="card-name">${g.name}</p>
+        <p class="card-type">${g.type}</p>
+      `;
+      container.appendChild(a);
+    });
+  }
+
+  renderGames(wordGames, 'word-games');
+  renderGames(geoGames, 'geo-games');
+  renderGames(sportsGames, 'sports-games');
+  renderGames(triviaGames, 'trivia-games');
+
+  const d = new Date();
+  document.getElementById('today-date').textContent = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+</script>
+
+</body>
+</html>
