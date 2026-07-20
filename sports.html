@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports — CCM</title>
+<meta name="description" content="Today's games with betting lines, plus headlines across NFL, CFB, UFC, NBA, and MLB.">
+<link rel="icon" type="image/png" href="assets/ccm-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="sports">
+
+<header class="masthead wrap">
+  <div class="dateline" id="dateline">THE DAILY BRIEFING</div>
+  <a class="logo-link" href="index.html" aria-label="CCM home">
+    <img class="logo" src="assets/ccm-logo.png" alt="CCM monogram">
+  </a>
+  <div class="tagline">Everything worth knowing today, on one page.</div>
+  <nav class="mainnav" aria-label="Main">
+    <ul>
+      <li><a data-nav="home" href="index.html">Home</a></li>
+      <li><a data-nav="stocks" href="stocks.html">Stocks</a></li>
+      <li><a data-nav="sports" href="sports.html">Sports</a></li>
+      <li><a data-nav="history" href="history.html">History</a></li>
+      <li><a data-nav="vocab" href="vocab.html">Vocab</a></li>
+      <li><a data-nav="games" href="games.html">Games</a></li>
+      <li><a data-nav="movies" href="movies.html">Movies</a></li>
+      <li><a data-nav="weather" href="weather.html">Weather</a></li>
+      <li><a data-nav="geo" href="geo.html">Geo Facts</a></li>
+      <li><a data-nav="news" href="news.html">News</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="ticker-strip"><div class="wrap" id="ticker"></div></div>
+
+<main class="wrap">
+
+  <div class="page-head">
+    <h1>Sports</h1>
+    <p class="sub">Today's slate across the NFL, college football, UFC, NBA, and MLB — with lines on games that haven't kicked off yet.</p>
+  </div>
+
+  <section class="block">
+    <h2>Headlines</h2>
+    <div id="sports-headlines"></div>
+  </section>
+
+  <div id="sports-boards"></div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div id="last-updated"></div>
+    <p>CCM · CADEMCMILLAN.COM · DATA: TRADINGVIEW · ESPN · WIKIPEDIA · OPEN-METEO · FREE DICTIONARY API · TMDB · BBC NEWS</p>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
